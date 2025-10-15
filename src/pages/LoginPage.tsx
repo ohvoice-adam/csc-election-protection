@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheckIcon, UserIcon } from 'lucide-react';
+import { UserIcon } from 'lucide-react';
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,11 +20,9 @@ const LoginPage: React.FC = () => {
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
         <div className="text-center">
           <div className="flex justify-center">
-            <ShieldCheckIcon className="h-16 w-16 text-blue-600" aria-hidden="true" />
+            <img src="/votifi.png" alt="Votifi" className="h-16 w-auto" />
           </div>
-          <h1 className="mt-4 text-3xl font-extrabold text-gray-900">
-            EP Defenders
-          </h1>
+          <h1 className="mt-4 text-3xl font-extrabold text-gray-900">Votifi</h1>
           <p className="mt-2 text-sm text-gray-600">
             Protecting voter rights and ensuring electoral accessibility
           </p>

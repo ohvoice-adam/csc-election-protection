@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MenuIcon, XIcon, ShieldCheckIcon, LogOutIcon } from 'lucide-react';
+import { MenuIcon, XIcon, LogOutIcon } from 'lucide-react';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -11,9 +11,9 @@ const Header: React.FC = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <ShieldCheckIcon className="h-8 w-8 text-blue-600" aria-hidden="true" />
+              <img src="/votifi_v.png" alt="Votifi logo" className="h-8 w-auto" />
               <span className="ml-2 text-xl font-bold text-gray-900">
-                EP Defenders
+                Votifi
               </span>
             </Link>
           </div>

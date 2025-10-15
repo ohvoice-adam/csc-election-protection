@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
           <div className="px-4 py-6 sm:px-0">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900">
-                EP Defenders Dashboard
+                Votifi Dashboard
               </h1>
               <p className="mt-2 text-lg text-gray-600">
                 Track and respond to voter barriers in real-time
