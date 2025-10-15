@@ -11,10 +11,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <img src="/votifi_v.png" alt="Votifi logo" className="h-8 w-auto" />
-              <span className="ml-2 text-xl font-bold text-gray-900">
-                Votifi
-              </span>
+              <img src="/votifi.png" alt="Votifi logo" className="h-8 w-auto" />
             </Link>
           </div>
           {/* Desktop navigation */}
