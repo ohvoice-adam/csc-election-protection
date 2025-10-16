@@ -5,6 +5,7 @@ import SearchSection from '../components/sections/SearchSection';
 import IncidentReportSection from '../components/sections/IncidentReportSection';
 import AdminSection from '../components/sections/AdminSection';
 import PollingLocationsSection from '../components/sections/PollingLocationsSection';
+import IncidentStatusTracker from '../components/IncidentStatusTracker';
 const HomePage: React.FC = () => {
   return <div className="min-h-screen flex flex-col">
       <Header />
@@ -18,6 +19,9 @@ const HomePage: React.FC = () => {
               <p className="mt-2 text-lg text-gray-600">
                 Track and respond to voter barriers in real-time
               </p>
+            </div>
+            <div className="mb-6">
+              <IncidentStatusTracker />
             </div>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               <SearchSection />
