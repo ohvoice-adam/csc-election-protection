@@ -46,16 +46,16 @@ const IncidentReportSection: React.FC = () => {
         Submit a report about issues at polling locations or other
         election-related incidents.
       </p>
-      {submitted ? <div className="p-4 rounded-md bg-green-50">
+      {submitted ? <div className="p-4 rounded-md bg-[#2e4211] bg-opacity-10">
           <div className="flex">
             <div className="flex-shrink-0">
-              <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
+              <CheckCircleIcon className="h-5 w-5 text-[#2e4211]" aria-hidden="true" />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-green-800">
+              <h3 className="text-sm font-medium text-[#2e4211]">
                 Incident report submitted successfully
               </h3>
-              <div className="mt-2 text-sm text-green-700">
+              <div className="mt-2 text-sm text-[#4f681c]">
                 <p>
                   Thank you for your report. Our team will review it and take
                   appropriate action.
@@ -77,7 +77,7 @@ const IncidentReportSection: React.FC = () => {
                 message: '',
                 verificationCode: ''
               });
-            }} className="text-sm font-medium text-green-700 hover:text-green-600">
+            }} className="text-sm font-medium text-[#4f681c] hover:text-[#2e4211]">
                   Submit another report
                 </button>
               </div>
@@ -88,19 +88,19 @@ const IncidentReportSection: React.FC = () => {
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Name
             </label>
-            <input type="text" name="name" id="name" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value={formData.name} onChange={handleChange} required />
+            <input type="text" name="name" id="name" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#235280] focus:border-[#235280] sm:text-sm" value={formData.name} onChange={handleChange} required />
           </div>
           <div>
             <label htmlFor="pollingLocation" className="block text-sm font-medium text-gray-700">
               Polling Location
             </label>
-            <input type="text" name="pollingLocation" id="pollingLocation" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value={formData.pollingLocation} onChange={handleChange} required placeholder="Name and address of polling location" />
+            <input type="text" name="pollingLocation" id="pollingLocation" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#235280] focus:border-[#235280] sm:text-sm" value={formData.pollingLocation} onChange={handleChange} required placeholder="Name and address of polling location" />
           </div>
           <div>
             <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
               Subject
             </label>
-            <select name="subject" id="subject" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value={formData.subject} onChange={handleChange} required>
+            <select name="subject" id="subject" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#235280] focus:border-[#235280] sm:text-sm" value={formData.subject} onChange={handleChange} required>
               <option value="">Select an issue type</option>
               {incidentSubjects.map(subject => <option key={subject} value={subject}>
                   {subject}
@@ -111,25 +111,25 @@ const IncidentReportSection: React.FC = () => {
             <label htmlFor="message" className="block text-sm font-medium text-gray-700">
               Message
             </label>
-            <textarea name="message" id="message" rows={4} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value={formData.message} onChange={handleChange} required placeholder="Please provide details about the incident..."></textarea>
+            <textarea name="message" id="message" rows={4} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#235280] focus:border-[#235280] sm:text-sm" value={formData.message} onChange={handleChange} required placeholder="Please provide details about the incident..."></textarea>
           </div>
           <div>
             <label htmlFor="verificationCode" className="block text-sm font-medium text-gray-700">
               Verification Code
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
-              <input type="text" name="verificationCode" id="verificationCode" className={`block w-full border ${verificationError ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`} value={formData.verificationCode} onChange={handleChange} required pattern="\d{6}" title="6-digit verification code" placeholder="Enter 6-digit code" />
+              <input type="text" name="verificationCode" id="verificationCode" className={`block w-full border ${verificationError ? 'border-[#803e5f]' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#235280] focus:border-[#235280] sm:text-sm`} value={formData.verificationCode} onChange={handleChange} required pattern="\d{6}" title="6-digit verification code" placeholder="Enter 6-digit code" />
               {verificationError && <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <AlertTriangleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
+                  <AlertTriangleIcon className="h-5 w-5 text-[#803e5f]" aria-hidden="true" />
                 </div>}
             </div>
-            {verificationError && <p className="mt-2 text-sm text-red-600">{verificationError}</p>}
+            {verificationError && <p className="mt-2 text-sm text-[#803e5f]">{verificationError}</p>}
             <p className="mt-1 text-xs text-gray-500">
               For demo purposes, enter any 6-digit number
             </p>
           </div>
           <div>
-            <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" disabled={isVerifying}>
+            <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#235280] hover:bg-[#1e456e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#235280]" disabled={isVerifying}>
               {isVerifying ? <>
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

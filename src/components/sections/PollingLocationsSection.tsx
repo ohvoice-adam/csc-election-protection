@@ -2,14 +2,17 @@ import React, { useEffect, useState, useRef, Component } from 'react';
 import { MapPinIcon, ClockIcon, InfoIcon, FilterIcon, ZoomInIcon, ZoomOutIcon, CheckCircleIcon, XCircleIcon, ClipboardListIcon } from 'lucide-react';
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { extendedPollingPlacesData, extendedIncidentData } from '../../data/extendedPollingPlacesData';
 // Virginia counties and precincts (simplified for demo)
-const virginiaCounties = ['Fairfax', 'Arlington', 'Alexandria', 'Loudoun', 'Prince William', 'Henrico', 'Chesterfield', 'Richmond City', 'Virginia Beach', 'Norfolk', 'Chesapeake', 'Newport News', 'Hampton', 'Roanoke', 'Lynchburg'];
+const virginiaCounties = ['Fairfax', 'Arlington', 'Alexandria', 'Loudoun', 'Prince William', 'Henrico', 'Chesterfield', 'Richmond City', 'Virginia Beach', 'Norfolk', 'Chesapeake', 'Newport News', 'Hampton', 'Roanoke', 'Lynchburg',
+// Add more counties from the extended dataset
+'Williamsburg', 'James City', 'York', 'Stafford', 'Spotsylvania', 'Fredericksburg', 'Charlottesville', 'Albemarle', 'Montgomery', 'Blacksburg', 'Danville', 'Martinsville'].sort();
 const precinctsByCounty: Record<string, string[]> = {
-  Fairfax: ['Precinct 1', 'Precinct 2', 'Precinct 3', 'Precinct 4'],
+  Fairfax: ['Precinct 1', 'Precinct 2', 'Precinct 3', 'Precinct 4', 'Precinct 5', 'Precinct 6', 'Precinct 7', 'Precinct 8', 'Precinct 9'],
   Arlington: ['Precinct 1', 'Precinct 2', 'Precinct 3'],
   Alexandria: ['Precinct 1', 'Precinct 2'],
   Loudoun: ['Precinct 1', 'Precinct 2', 'Precinct 3'],
-  'Prince William': ['Precinct 1', 'Precinct 2', 'Precinct 3'],
+  'Prince William': ['Precinct 1', 'Precinct 2', 'Precinct 3', 'Precinct 4', 'Precinct 5', 'Precinct 6'],
   Henrico: ['Precinct 1', 'Precinct 2', 'Precinct 3'],
   Chesterfield: ['Precinct 1', 'Precinct 2'],
   'Richmond City': ['Precinct 1', 'Precinct 2', 'Precinct 3', 'Precinct 4'],
@@ -19,160 +22,37 @@ const precinctsByCounty: Record<string, string[]> = {
   'Newport News': ['Precinct 1', 'Precinct 2'],
   Hampton: ['Precinct 1', 'Precinct 2'],
   Roanoke: ['Precinct 1', 'Precinct 2'],
-  Lynchburg: ['Precinct 1', 'Precinct 2']
+  Lynchburg: ['Precinct 1', 'Precinct 2'],
+  // Add more precincts from extended dataset
+  Williamsburg: ['Precinct 1', 'Precinct 2'],
+  'James City': ['Precinct 1', 'Precinct 2'],
+  York: ['Precinct 1', 'Precinct 2'],
+  Stafford: ['Precinct 1', 'Precinct 2'],
+  Spotsylvania: ['Precinct 1', 'Precinct 2'],
+  Fredericksburg: ['Precinct 1', 'Precinct 2'],
+  Charlottesville: ['Precinct 1', 'Precinct 2'],
+  Albemarle: ['Precinct 1', 'Precinct 2'],
+  Montgomery: ['Precinct 1', 'Precinct 2', 'Precinct 3', 'Precinct 4'],
+  Blacksburg: ['Precinct 1', 'Precinct 2'],
+  Danville: ['Precinct 1', 'Precinct 2'],
+  Martinsville: ['Precinct 1', 'Precinct 2']
 };
-// Sample polling locations with coordinates (approximate for Virginia)
-const pollingLocations = [{
-  id: 1,
-  name: 'Fairfax High School',
-  address: '123 Main St, Fairfax, VA',
-  county: 'Fairfax',
-  precinct: 'Precinct 1',
-  incidents: 12,
-  status: 'issue',
-  lat: 38.846,
-  lng: -77.306
-}, {
-  id: 2,
-  name: 'Arlington Community Center',
-  address: '456 Oak Ave, Arlington, VA',
-  county: 'Arlington',
-  precinct: 'Precinct 2',
-  incidents: 3,
-  status: 'ok',
-  lat: 38.88,
-  lng: -77.106
-}, {
-  id: 3,
-  name: 'Alexandria City Hall',
-  address: '789 Gov Pl, Alexandria, VA',
-  county: 'Alexandria',
-  precinct: 'Precinct 1',
-  incidents: 7,
-  status: 'issue',
-  lat: 38.804,
-  lng: -77.047
-}, {
-  id: 4,
-  name: 'Loudoun County High',
-  address: '234 School Ln, Leesburg, VA',
-  county: 'Loudoun',
-  precinct: 'Precinct 1',
-  incidents: 1,
-  status: 'ok',
-  lat: 39.116,
-  lng: -77.564
-}, {
-  id: 5,
-  name: 'Prince William Library',
-  address: '567 Read Rd, Manassas, VA',
-  county: 'Prince William',
-  precinct: 'Precinct 2',
-  incidents: 5,
-  status: 'ok',
-  lat: 38.751,
-  lng: -77.475
-}, {
-  id: 6,
-  name: 'Henrico Recreation Center',
-  address: '890 Play Dr, Henrico, VA',
-  county: 'Henrico',
-  precinct: 'Precinct 3',
-  incidents: 0,
-  status: 'ok',
-  lat: 37.54,
-  lng: -77.469
-}, {
-  id: 7,
-  name: 'Chesterfield Elementary',
-  address: '123 Learn St, Chesterfield, VA',
-  county: 'Chesterfield',
-  precinct: 'Precinct 1',
-  incidents: 8,
-  status: 'issue',
-  lat: 37.376,
-  lng: -77.578
-}, {
-  id: 8,
-  name: 'Richmond Convention Center',
-  address: '456 Event Blvd, Richmond, VA',
-  county: 'Richmond City',
-  precinct: 'Precinct 2',
-  incidents: 15,
-  status: 'issue',
-  lat: 37.541,
-  lng: -77.436
-}, {
-  id: 9,
-  name: 'Virginia Beach Oceanfront',
-  address: '789 Beach Dr, Virginia Beach, VA',
-  county: 'Virginia Beach',
-  precinct: 'Precinct 3',
-  incidents: 2,
-  status: 'ok',
-  lat: 36.852,
-  lng: -75.977
-}, {
-  id: 10,
-  name: 'Norfolk State University',
-  address: '234 College Ave, Norfolk, VA',
-  county: 'Norfolk',
-  precinct: 'Precinct 1',
-  incidents: 4,
-  status: 'ok',
-  lat: 36.849,
-  lng: -76.261
-}, {
-  id: 11,
-  name: 'Chesapeake City Hall',
-  address: '567 Gov Ctr, Chesapeake, VA',
-  county: 'Chesapeake',
-  precinct: 'Precinct 2',
-  incidents: 6,
-  status: 'issue',
-  lat: 36.768,
-  lng: -76.287
-}, {
-  id: 12,
-  name: 'Newport News High School',
-  address: '890 Education Ln, Newport News, VA',
-  county: 'Newport News',
-  precinct: 'Precinct 1',
-  incidents: 1,
-  status: 'ok',
-  lat: 37.087,
-  lng: -76.473
-}, {
-  id: 13,
-  name: 'Hampton Community Center',
-  address: '123 Community Dr, Hampton, VA',
-  county: 'Hampton',
-  precinct: 'Precinct 2',
-  incidents: 0,
-  status: 'ok',
-  lat: 37.03,
-  lng: -76.345
-}, {
-  id: 14,
-  name: 'Roanoke Library',
-  address: '456 Book St, Roanoke, VA',
-  county: 'Roanoke',
-  precinct: 'Precinct 1',
-  incidents: 9,
-  status: 'issue',
-  lat: 37.271,
-  lng: -79.942
-}, {
-  id: 15,
-  name: 'Lynchburg College',
-  address: '789 College Dr, Lynchburg, VA',
-  county: 'Lynchburg',
-  precinct: 'Precinct 2',
-  incidents: 3,
-  status: 'ok',
-  lat: 37.404,
-  lng: -79.182
-}];
+// Convert extendedPollingPlacesData to the format needed for this component
+const pollingLocations = extendedPollingPlacesData.map(location => {
+  // Find if there are any incidents for this location
+  const incidentData = extendedIncidentData.find(incident => incident.name === location.name);
+  return {
+    id: parseInt(location.id),
+    name: location.name,
+    address: location.address,
+    county: location.county,
+    precinct: location.precincts[0]?.name || 'Unknown Precinct',
+    incidents: incidentData?.incidents || 0,
+    status: incidentData?.incidents > 3 ? 'issue' : 'ok',
+    lat: location.lat,
+    lng: location.lng
+  };
+});
 // Component to handle map view changes
 const MapViewControl = ({
   center,

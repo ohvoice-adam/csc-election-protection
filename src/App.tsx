@@ -4,6 +4,9 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import SearchResultsPage from './pages/SearchResultsPage';
+import AdminPage from './pages/AdminPage';
+import VoterEligibilityMapPage from './pages/VoterEligibilityMapPage';
+import PollingPlaceDetailsPage from './pages/PollingPlaceDetailsPage';
 export function App() {
   // Changed to true for demo purposes so you can see the home page
   const isAuthenticated = true;
@@ -15,8 +18,12 @@ export function App() {
           </Helmet>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/search-results" element={isAuthenticated ? <SearchResultsPage /> : <Navigate to="/login" />} />
+            <Route path="/polling-places" element={<Navigate to="/admin/map" />} />
+            <Route path="/voter-eligibility" element={isAuthenticated ? <VoterEligibilityMapPage /> : <Navigate to="/login" />} />
+            <Route path="/admin/*" element={isAuthenticated ? <AdminPage /> : <Navigate to="/login" />} />
+            <Route path="/polling-place/:pollingPlaceId" element={isAuthenticated ? <PollingPlaceDetailsPage /> : <Navigate to="/login" />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

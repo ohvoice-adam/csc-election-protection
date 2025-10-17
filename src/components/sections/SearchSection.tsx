@@ -71,12 +71,12 @@ const SearchSection: React.FC = () => {
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
             </div>
-            <input type="text" className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base" placeholder={searchPlaceholder} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+            <input type="text" className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-[#235280] focus:border-[#235280] text-sm md:text-base" placeholder={searchPlaceholder} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
             <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={toggleSpeechRecognition} title={isListening ? 'Stop listening' : 'Search by voice'}>
-              {isListening ? <StopCircleIcon className="h-5 w-5 text-red-500" aria-hidden="true" /> : <MicIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" aria-hidden="true" />}
+              {isListening ? <StopCircleIcon className="h-5 w-5 text-[#803e5f]" aria-hidden="true" /> : <MicIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" aria-hidden="true" />}
             </button>
           </div>
-          <button type="submit" className="inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:w-auto">
+          <button type="submit" className="inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#235280] hover:bg-[#1e456e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#235280] sm:w-auto">
             <SearchIcon className="h-5 w-5 mr-2 sm:hidden" />
             <span>Search</span>
           </button>
@@ -90,7 +90,7 @@ const SearchSection: React.FC = () => {
           <li className="py-3">
             <div className="flex items-start">
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-blue-600">
+                <p className="text-sm font-medium text-[#235280]">
                   Polling Location Change
                 </p>
                 <p className="text-sm text-gray-500">
@@ -98,7 +98,7 @@ const SearchSection: React.FC = () => {
                 </p>
               </div>
               <div className="ml-4 flex-shrink-0">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#4f681c] text-white">
                   Pending
                 </span>
               </div>
@@ -107,7 +107,7 @@ const SearchSection: React.FC = () => {
           <li className="py-3">
             <div className="flex items-start">
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-blue-600">
+                <p className="text-sm font-medium text-[#235280]">
                   Accessibility Issue
                 </p>
                 <p className="text-sm text-gray-500">
@@ -115,7 +115,7 @@ const SearchSection: React.FC = () => {
                 </p>
               </div>
               <div className="ml-4 flex-shrink-0">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#2e4211] text-white">
                   Resolved
                 </span>
               </div>
